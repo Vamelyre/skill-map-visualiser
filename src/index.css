@@ -1,0 +1,81 @@
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+  
+    color-scheme: light dark;
+    color: rgba(0, 0, 0, 0.89);
+    background-color: #ffffff; 
+  
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+  }
+  
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 1rem;
+  }
+  
+  h1 {
+    font-size: 2.2em;
+    line-height: 1.1;
+    margin: 0;
+  }
+  
+  h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+  }
+  
+  h3 {
+    font-size: 1.4em;
+  }
+  
+  .intro {
+    margin-bottom: 2rem;
+  }
+  
+  .features ul {
+    padding-left: 1.5rem;
+  }
+  
+  .features li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .visualization {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .skill-heatmap {
+    padding: 1rem;
+  }
+  
+  .placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 2rem;
+    text-align: center;
+  } 
