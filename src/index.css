@@ -1,81 +1,76 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  background: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-weight: 400;
-  
-    color-scheme: light dark;
-    color: #0f0101;
-    background-color: #ffffff; 
-  
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.89);
+  background-color: #ffffff; 
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme="dark"] {
+  color: rgba(1, 1, 1, 0.87);
+}
+
+:root[data-theme="dark"] html,
+:root[data-theme="dark"] body {
+  background: #ffffff;
+}
+
+/* D3.js chart styles */
+.bar:hover {
+  opacity: 0.8;
+}
+.label {
+  font-size: 12px;
+  fill: #666;
+}
+
+:root[data-theme="dark"] .label {
+  fill: #ccc;
+}
+
+.MuiCard-root {
+  background-color: #000000;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+:root[data-theme="dark"] .MuiCard-root {
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+.MuiContainer-root {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+/* mui theme overrides for dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #1a1b1e;
   }
-  
   body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
+    background: #1a1b1e;
   }
-  
-  .app-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
+  .label {
+    fill: #ccc;
   }
-  
-  header {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #eaeaea;
-    padding-bottom: 1rem;
-  }
-  
-  h1 {
-    font-size: 2.2em;
-    line-height: 1.1;
-    margin: 0;
-  }
-  
-  h2 {
-    font-size: 1.8em;
-    margin-top: 0;
-  }
-  
-  h3 {
-    font-size: 1.4em;
-  }
-  
-  .intro {
-    margin-bottom: 2rem;
-  }
-  
-  .features ul {
-    padding-left: 1.5rem;
-  }
-  
-  .features li {
-    margin-bottom: 0.5rem;
-  }
-  
-  .visualization {
-    margin: 2rem 0;
-    padding: 1.5rem;
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .skill-heatmap {
-    padding: 1rem;
-  }
-  
-  .placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-    padding: 2rem;
-    text-align: center;
-  } 
+} 

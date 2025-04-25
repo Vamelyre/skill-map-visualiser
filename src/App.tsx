@@ -1,110 +1,57 @@
 import React from 'react';
+import { Container, Typography, Box } from '@mui/material';
 import { SkillHeatmap } from './components/skill-heatmap';
 import { GapAnalysis } from './components/gap-analysis';
-import { TeamMember, ProjectRequirement } from './types/types';
+import { SkillTrends } from './components/skill-trends';
+import { ThemeToggle } from './components/dark-mode-toggle';
+import { teamMembers, projectRequirements, skillTrends } from './data/sample';
+import { SkillGap, ProficiencyLevel } from './types/types';
 
-const mockTeamMembers: TeamMember[] = [
-  {
-    id: '1',
-    name: 'John Doe',
-    role: 'Frontend Developer',
-    skills: [
-      { name: 'React', category: 'Frontend', proficiency: 'expert' },
-      { name: 'TypeScript', category: 'Programming', proficiency: 'proficient' },
-      { name: 'CSS', category: 'Frontend', proficiency: 'expert' }
-    ]
-  },
-  {
-    id: '2',
-    name: 'Jane Smith',
-    role: 'Backend Developer',
-    skills: [
-      { name: 'Node.js', category: 'Backend', proficiency: 'expert' },
-      { name: 'TypeScript', category: 'Programming', proficiency: 'proficient' },
-      { name: 'MongoDB', category: 'Database', proficiency: 'familiar' }
-    ]
-  },
-  {
-    id: '3',
-    name: 'Alex Johnson',
-    role: 'Full Stack Developer',
-    skills: [
-      { name: 'React', category: 'Frontend', proficiency: 'proficient' },
-      { name: 'Node.js', category: 'Backend', proficiency: 'proficient' },
-      { name: 'TypeScript', category: 'Programming', proficiency: 'expert' },
-      { name: 'MongoDB', category: 'Database', proficiency: 'familiar' }
-    ]
-  }
-];
-
-
-
-const mockProjectRequirements: ProjectRequirement[] = [
-  {
-    id: '1',
-    name: 'Frontend Development',
-    requiredSkills: [
-      { skillName: 'React', minimumProficiency: 'proficient', count: 2 },
-      { skillName: 'CSS', minimumProficiency: 'proficient', count: 1 },
-      { skillName: 'TypeScript', minimumProficiency: 'familiar', count: 1 }
-    ]
-  },
-  {
-    id: '2',
-    name: 'Backend Development',
-    requiredSkills: [
-      { skillName: 'Node.js', minimumProficiency: 'expert', count: 1 },
-      { skillName: 'mongODB', minimumProficiency: 'proficient', count: 1 }
-    ]
-  }
-];
-
-
+//compare proficiency levels
+const isProficiencyAtLeast = (current: ProficiencyLevel, required: ProficiencyLevel): boolean => {
+  const levels: ProficiencyLevel[] = ['none', 'familiar', 'proficient', 'expert'];
+  return levels.indexOf(current) >= levels.indexOf(required);
+};
 
 function App() {
+
+  const skillGaps: SkillGap[] = projectRequirements.flatMap(project => 
+    project.requiredSkills.map(requirement => {
+      const availableCount = teamMembers.filter(member => 
+        member.skills.some(skill => 
+          skill.name === requirement.skillName && 
+          isProficiencyAtLeast(skill.proficiency, requirement.minimumProficiency)
+        )
+      ).length;
+
+      return {
+        skillName: requirement.skillName,
+        required: requirement.count,
+        available: availableCount,
+        criticalGap: availableCount < requirement.count
+      };
+    })
+  );
+
   return (
-    <div className="app-container">
-      <header>
-        <h1>Skill Map Visualiser</h1>
-      </header>
-      <main>
-        <section className="intro">
-          <h2>Team Skill Visualization Tool</h2>
-          <p>This tool will help visualize team skills and identify gaps.</p>
-        </section>
+    <>
+      <ThemeToggle />
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Dev Team Skill Map Visualizer
+        </Typography>
         
-        <section className="visualization">
-          <SkillHeatmap teamMembers={mockTeamMembers} />
-        </section>
-        
-        <section className="analysis">
-          <GapAnalysis 
-            teamMembers={mockTeamMembers} 
-            projectRequirements={mockProjectRequirements} 
-          />
-        </section>
-        
-        <section className="features">
-          <h3>Planned Features:</h3>
-          <ul>
-            <li>Skill heatmap visualization</li>
-            <li>Gap analysis</li>
-            <li>Skill trends tracking</li>
-          </ul>
-        </section>
-      </main>
-    </div>
+        <Box sx={{ mb: 4 }}>
+          <SkillHeatmap teamMembers={teamMembers} />
+        </Box>
+
+
+        <Box sx={{ mb: 4 }}>
+          <SkillTrends trends={skillTrends} />
+        </Box>
+      </Container>
+    </>
   );
 }
 
-export default App;
-
-/*
-add skill trends component
-data persistence with localStorage or a backend
-add filtering options for the heatmap
-a form to add/edit team members and skills
-export  
-responsivemess
-dark mode toggle
-*/
+export default App; 
